@@ -40,6 +40,12 @@ git clone <repository-url> ~/.oh-my-opencode
 cd ~/.oh-my-opencode
 ```
 
+テンプレートとして利用する場合は、必要に応じて `.git` を削除して履歴を切り離すことを推奨します。
+
+```bash
+rm -rf .git
+```
+
 ## セットアップ
 
 OSごとの `Task` コマンドのインストール手順です。
@@ -49,6 +55,9 @@ OSごとの `Task` コマンドのインストール手順です。
 Homebrewを使用してインストールします。
 
 ```bash
+# Docker Desktop のインストール
+brew install --cask docker
+
 # Taskのインストール
 brew install go-task/tap/go-task
 
@@ -62,6 +71,10 @@ colima start --cpu 4 --memory 8 --disk 60
 npm または snap を使用してインストールします。
 
 ```bash
+# Docker Engine のインストール
+sudo apt-get update
+sudo apt-get install -y docker.io
+
 # npm経由の場合（Node.jsがインストール済みの場合）
 npm install -g @go-task/cli
 
@@ -74,6 +87,9 @@ sudo snap install task --classic
 PowerShell (管理者権限) または npm でインストールします。
 
 ```bash
+# Docker Desktop のインストール
+winget install Docker.DockerDesktop
+
 # npm経由の場合
 npm install -g @go-task/cli
 
