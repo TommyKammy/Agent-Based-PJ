@@ -19,5 +19,6 @@
   "homepage": "https://github.com/TommyKammy/Template-Agent-Based-Project#readme",
   "dependencies": {
     "ws": "^8.19.0"
-  }
+  },
+  "devDependencies": {}
 }
