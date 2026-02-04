@@ -58,7 +58,7 @@ Homebrewを使用してインストールします。
 # Docker Desktop のインストール
 brew install --cask docker
 
-# Taskのインストール
+# Taskのインストール    
 brew install go-task/tap/go-task
 
 # （オプション）Colimaを使用する場合

@@ -14,7 +14,7 @@
     },
     
     // ▼▼▼ 修正: chownの対象パスを追加 (.opencode, .claude) ▼▼▼
-    "postCreateCommand": "sudo chown node:node /workspace && sudo chown -R node:node /home/node/.local /home/node/.opencode /home/node/.claude && bash /tmp/init.sh && npm init -y && npm install && mkdir -p ~/.config/opencode && ln -sf $(pwd)/.devcontainer/opencode_config.json ~/.config/opencode/opencode.json",
+    "postCreateCommand": "sudo chown node:node /workspace && sudo chown -R node:node /home/node/.local /home/node/.opencode /home/node/.claude && bash /tmp/init.sh && npm install && mkdir -p ~/.config/opencode && ln -sf $(pwd)/.devcontainer/opencode_config.json ~/.config/opencode/opencode.json",
     
     "remoteEnv": {
         "OH_MY_OPENCODE_ENABLED": "true"
