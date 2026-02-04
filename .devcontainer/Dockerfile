@@ -14,8 +14,8 @@ RUN apt-get update && apt-get install -y \
 # Switch to non-root user 'node' for npm global installs
 USER node
 
-# opencode-ai と oh-my-opencode をインストール
-RUN npm install -g opencode-ai oh-my-opencode
+# opencode-ai と oh-my-opencode を最新版でインストール
+RUN npm install -g opencode-ai@latest oh-my-opencode@latest
 
 # Create .zshrc and add configuration
 # ▼▼▼ 修正: zshを起動時に確実に設定を読み込ませる ▼▼▼
