@@ -4,10 +4,10 @@
         "dockerfile": "Dockerfile",
         "context": "."
     },
-    "workspaceMount": "source=${localWorkspaceFolder},target=/workspace,type=bind",
-    "workspaceFolder": "/workspace",
+    "workspaceMount": "source=${localWorkspaceFolder},target=/workspaces/${localWorkspaceFolderBasename},type=bind",
+    "workspaceFolder": "/workspaces/${localWorkspaceFolderBasename}",
 
-    "features": {
+    "features": {   
         "ghcr.io/devcontainers/features/copilot-cli:1": {},
         "ghcr.io/devcontainers/features/sshd:1": {},
         "ghcr.io/devcontainers-extra/features/prisma:2": {}
