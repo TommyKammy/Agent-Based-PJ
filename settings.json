@@ -1,0 +1,10 @@
+// opencodeでctrl + pのキーコンビネーションでopencodeのコマンドが開かずvscodeのファイルを開く機能が優先される場合の対処方法
+// 1. ショートカットキーcommand + shift + P(Windows: Ctrl + Shift + P)またはF1でコマンドパレットを表示します。
+// 2. settingsまたは設定(日本語化済みの場合)と入力します。
+// 3. Preferences: Open Settings(JSON)(日本語化済みなら基本設定:　設定(JSON)を開く)を選択します。
+// 4. 以下をコピペして保存します
+{
+"terminal.integrated.commandsToSkipShell": [
+  "-workbench.action.quickOpen"
+]
+}

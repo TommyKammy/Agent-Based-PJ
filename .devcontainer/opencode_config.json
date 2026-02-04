@@ -1,0 +1,126 @@
+{
+  "$schema": "https://opencode.ai/config.json",
+  "model": "kimi-for-coding/k2p5",
+  "small_model": "opencode/grok-code-fast-1",
+
+  "tui": {
+    "scroll_speed": 1,
+    "scroll_acceleration": {
+      "enabled": true
+    },
+    "diff_style": "auto"
+  },
+
+  "permission": {
+    "bash": {
+      "*": "allow",
+      "rm -rf *": "deny",
+      "git push --force*": "deny",
+      "sudo *": "deny",
+      "dd *": "deny",
+      "mkfs*": "deny",
+      "format*": "deny"
+    }
+  },
+
+  "mcp": {
+    "context7": {
+      "type": "remote",
+      "url": "https://mcp.context7.com/mcp"
+    },
+    "serena": {
+      "type": "local",
+      "enabled": true,
+      "command": [
+        "uvx",
+        "--from",
+        "git+https://github.com/oraios/serena",
+        "serena",
+        "start-mcp-server",
+        "--context",
+        "opencode"
+      ]
+    },
+    "chrome-devtools": {
+      "type": "local",
+      "command": ["npx", "-y", "chrome-devtools-mcp@latest", "--browser-url=http://host.docker.internal:9222"],
+      "enabled": true
+    }
+  },
+
+  "mode": {
+    "build": {
+      "mode": "primary",
+      "description": "実装・修正（kimi-for-coding/k2p5 / no web）",
+      "model": "kimi-for-coding/k2p5",
+      "tools": {
+        "read": true,
+        "write": true,
+        "edit": true,
+        "bash": true,
+        "grep": true,
+        "glob": true,
+        "list": true,
+        "webfetch": false,
+        "websearch": false,
+        "codesearch": false
+      }
+    },
+    "general": {
+      "mode": "subagent",
+      "description": "要約・雑談（kimi-for-coding/k2p5 / no web）",
+      "model": "kimi-for-coding/k2p5",
+      "tools": {
+        "read": true,
+        "write": true,
+        "edit": true,
+        "bash": false,
+        "grep": true,
+        "glob": true,
+        "list": true,
+        "webfetch": false,
+        "websearch": false,
+        "codesearch": false
+      }
+    },
+    "explore": {
+      "mode": "subagent",
+      "description": "Web調査（glm-4.7-flash / web tools）",
+      "model": "kimi-for-coding/k2p5",
+      "tools": {
+        "webfetch": true,
+        "websearch": true,
+        "read": true,
+        "grep": true,
+        "glob": true,
+        "list": true
+      }
+    },
+    "oracle": {
+      "mode": "subagent",
+      "description": "設計・判断（openai/gpt-5.2 / 基本 read-only）",
+      "model": "openai/gpt-5.2",
+      "tools": {
+        "read": true,
+        "grep": true,
+        "glob": true,
+        "list": true,
+        "webfetch": false,
+        "websearch": false
+      }
+    },
+    "sisyphus": {
+      "mode": "primary",
+      "description": "メインオーケストレーター（方針決め→振り分け→統括）",
+      "model": "kimi-for-coding/k2p5",
+      "tools": {
+        "read": true,
+        "grep": true,
+        "glob": true,
+        "list": true,
+        "webfetch": true,
+        "websearch": true
+      }
+    }
+  }
+}

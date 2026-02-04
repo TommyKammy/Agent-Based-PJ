@@ -1,0 +1,57 @@
+version: '3'
+
+vars:
+  IMAGE_NAME: opencode-dev-env
+  CONTAINER_NAME: opencode-container
+  # .devcontainer フォルダの場所を指定
+  DEVCONTAINER_DIR: .devcontainer
+  # マウントするソースコードのパス
+  WORKSPACE_DIR:
+    sh: pwd
+
+tasks:
+  default:
+    cmds:
+      - task: list
+
+  list:
+    desc: 利用可能なタスク一覧を表示します
+    cmds:
+      - task --list
+
+  build:
+    desc: Dockerイメージをビルドします
+    cmds:
+      - docker build -t {{.IMAGE_NAME}} -f {{.DEVCONTAINER_DIR}}/Dockerfile {{.DEVCONTAINER_DIR}}
+
+  up:
+    desc: コンテナをバックグラウンドで起動します (Compose up -d 相当)
+    cmds:
+      - task: build
+      - >
+        docker run -d 
+        --name {{.CONTAINER_NAME}} 
+        --user node 
+        -v {{.WORKSPACE_DIR}}:/workspace 
+        -v opencode-auth-data:/home/node/.local/share/opencode 
+        -w /workspace 
+        {{.IMAGE_NAME}} 
+        sleep infinity
+    status:
+      - docker inspect {{.CONTAINER_NAME}} >/dev/null 2>&1
+
+  down:
+    desc: コンテナを停止・削除します (Compose down 相当)
+    cmds:
+      - docker rm -f {{.CONTAINER_NAME}}
+    ignore_error: true
+
+  shell:
+    desc: コンテナ内のシェル(zsh)に接続します
+    cmds:
+      - docker exec -it {{.CONTAINER_NAME}} zsh
+
+  logs:
+    desc: コンテナのログを表示します
+    cmds:
+      - docker logs -f {{.CONTAINER_NAME}}

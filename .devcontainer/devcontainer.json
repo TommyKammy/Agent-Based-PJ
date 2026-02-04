@@ -1,0 +1,49 @@
+{
+    "name": "Node.js & TypeScript",
+    "build": {
+        "dockerfile": "Dockerfile",
+        "context": "."
+    },
+    "workspaceMount": "source=${localWorkspaceFolder},target=/workspace,type=bind",
+    "workspaceFolder": "/workspace",
+
+    "features": {
+        "ghcr.io/devcontainers/features/copilot-cli:1": {},
+        "ghcr.io/devcontainers/features/sshd:1": {},
+        "ghcr.io/devcontainers-extra/features/prisma:2": {}
+    },
+    
+    // ▼▼▼ 修正: chownの対象パスを追加 (.opencode, .claude) ▼▼▼
+    "postCreateCommand": "sudo chown node:node /workspace && sudo chown -R node:node /home/node/.local /home/node/.opencode /home/node/.claude && bash /tmp/init.sh && npm init -y && npm install && mkdir -p ~/.config/opencode && ln -sf $(pwd)/.devcontainer/opencode_config.json ~/.config/opencode/opencode.json",
+    
+    "remoteEnv": {
+        "OH_MY_OPENCODE_ENABLED": "true"
+    },
+
+    "customizations": {
+        "vscode": {
+            "settings": {
+                "terminal.integrated.shellArgs.linux": ["-l"],
+                "terminal.integrated.profiles.linux": {
+                    "zsh": {
+                        "path": "/bin/zsh",
+                        "args": ["-l", "-i"]
+                    }
+                },
+                "terminal.integrated.defaultProfile.linux": "zsh"
+            }
+        }
+    },
+
+    "mounts": [
+        // ▼▼▼ 修正: 重複していたマウントを削除し、一意に整理 ▼▼▼
+        // OpenCodeのデータ (ログ、セッションDBなど)
+        "source=opencode-data,target=/home/node/.local/share/opencode,type=volume",
+        // oh-my-opencode (Claude互換設定)
+        "source=opencode-config,target=/home/node/.claude,type=volume",
+        // opencodeのルート設定 (.opencode/package.json など)
+        "source=opencode-local,target=/home/node/.opencode,type=volume"
+    ],
+
+    "remoteUser": "node"
+}
